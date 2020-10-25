@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: matches
+  name: matches
+spec:
+  ports:
+    - name: http
+      port: 9999
+      protocol: TCP
+      targetPort: 9999
+  selector:
+    app: matches

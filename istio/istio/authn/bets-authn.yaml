@@ -1,0 +1,20 @@
+apiVersion: "authentication.istio.io/v1alpha1"
+kind: "Policy"
+metadata:
+  name: "bets-api-auth-policy"
+spec:
+  targets:
+    - name: "bets"
+    - name: "matches"
+    - name: "players"
+    - name: "championships"
+  origins:
+    - jwt:
+        audiences:
+          - account
+        issuer: "http://34.70.204.126/auth/realms/c4-istio"
+        jwksUri: "http://34.70.204.126/auth/realms/c4-istio/protocol/openid-connect/certs"
+        trigger_rules:
+          - excluded_paths:
+              - prefix: /health
+  principalBinding: USE_ORIGIN

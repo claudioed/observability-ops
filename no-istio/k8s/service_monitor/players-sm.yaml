@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: players-service-monitor
+spec:
+  selector:
+    matchLabels:
+      app: players
+  endpoints:
+    - port: "http"
+      path: "/actuator/prometheus"

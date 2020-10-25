@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: bets-service-monitor
+spec:
+  selector:
+    matchLabels:
+      app: bets
+  endpoints:
+    - port: "http"
+      path: "/actuator/prometheus"
