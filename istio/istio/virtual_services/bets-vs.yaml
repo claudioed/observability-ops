@@ -4,9 +4,7 @@ metadata:
   name: bets-vs
 spec:
   hosts:
-    - bets.mesh-training.svc.cluster.local
-    - bets
-    - <YOUR-NAME-HERE>.sensedia.com
+    - "*"
   gateways:
     - bets-gateway
   http:
