@@ -26,7 +26,7 @@ kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
 - role: control-plane
-  image: kindest/node:v1.17.11@sha256:5240a7a2c34bf241afb54ac05669f8a46661912eab05705d660971eeb12f6555
+  image: kindest/node:v1.19.1@sha256:98cf5288864662e37115e362b23e4369c8c4a408f99cbc06e58ac30ddc721600
   kubeadmConfigPatches:
   - |
     kind: InitConfiguration
@@ -56,10 +56,10 @@ for node in $(kind get nodes); do
 done
 
 # connect to kind's cluster
-kubectl ctx kind-istio-cluster
+kubectl cluster-info --context kind-istio-cluster
 
 # install Istio
-cat <<EOF | istioctl install -f -
+cat <<EOF | istioctl install -y -f -
 apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
 spec:
@@ -102,10 +102,10 @@ kubectl apply -n istio-system -f ./install/kiali
 kubectl apply -n istio-system -f ./install/jaeger
 kubectl apply -n istio-system -f ./install/grafana
 
-## install app
-kubectl apply -f ./namespace/ns.yaml
-kubectl apply --recursive -n istio -f ./k8s
-kubectl apply --recursive -n istio -f ./istio
+### install app
+#kubectl apply -f ./namespace/ns.yaml
+#kubectl apply --recursive -n istio -f ./k8s
+#kubectl apply --recursive -n istio -f ./istio
 
 # wait for ingress to be ready
 wait http://localhost:15021/healthz/ready
