@@ -8,4 +8,4 @@ then
     CURRENT_NAMESPACE=$(kubectl config get-contexts $(kubectl config current-context) | tail -n 1 | awk '{print $NF}')
 fi
 
-kubectl port-forward svc/tracing 16000:80 --namespace=istio-system
+kubectl port-forward service/loki-grafana 3001:80 --namespace=loki
